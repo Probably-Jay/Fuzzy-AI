@@ -20,8 +20,8 @@ namespace FuzzyLogic
     [System.Serializable]
     public class SimpleFuzzyRule
     {
-    
-   
+
+
 
         //public enum Logic
         //{
@@ -29,8 +29,16 @@ namespace FuzzyLogic
         //    , Or
         //}
 
+        public enum IsOrIsNot 
+        { 
+            Is
+            , IsNot
+        }
+
+
 
         public CrispInput.Inputs input;
+        public SimpleFuzzyRule.IsOrIsNot isOrIsNot;
         public FuzzyUtility.FuzzyStates inputState;
 
         public CrispOutput.Outputs output;
@@ -114,25 +122,31 @@ namespace FuzzyLogic
                  new Rect(rect.x+15, rect.y, 110, EditorGUIUtility.singleLineHeight),
                  element.FindPropertyRelative(nameof(SimpleFuzzyRule.input)),
                  GUIContent.none
+                );  
+            
+            EditorGUI.PropertyField(
+                 new Rect(rect.x+125, rect.y, 60, EditorGUIUtility.singleLineHeight),
+                 element.FindPropertyRelative(nameof(SimpleFuzzyRule.isOrIsNot)),
+                 GUIContent.none
                 ); 
             
             EditorGUI.PropertyField(
-                 new Rect(rect.x+125, rect.y, 35, EditorGUIUtility.singleLineHeight),
+                 new Rect(rect.x+185, rect.y, 40, EditorGUIUtility.singleLineHeight),
                  element.FindPropertyRelative(nameof(SimpleFuzzyRule.inputState)),
                  GUIContent.none
                 );
 
-            EditorGUI.LabelField(new Rect(rect.x+165, rect.y, 30, EditorGUIUtility.singleLineHeight), "then");
+            EditorGUI.LabelField(new Rect(rect.x+230, rect.y, 30, EditorGUIUtility.singleLineHeight), "then");
 
 
             EditorGUI.PropertyField(
-                 new Rect(rect.x + 200, rect.y, 100, EditorGUIUtility.singleLineHeight),
+                 new Rect(rect.x + 260, rect.y, 100, EditorGUIUtility.singleLineHeight),
                  element.FindPropertyRelative(nameof(SimpleFuzzyRule.output)),
                  GUIContent.none
                 );
 
             EditorGUI.PropertyField(
-                 new Rect(rect.x +300, rect.y, 40, EditorGUIUtility.singleLineHeight),
+                 new Rect(rect.x +370, rect.y, 40, EditorGUIUtility.singleLineHeight),
                  element.FindPropertyRelative(nameof(SimpleFuzzyRule.outputState)),
                  GUIContent.none
                 );

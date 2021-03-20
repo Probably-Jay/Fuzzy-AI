@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Fuzzy\System\Rules\FunctionCurve.cs" />
     <Compile Include="Assets\Scripts\Fuzzy\System\Rules\FuzzyRulesList.cs" />
     <Compile Include="Assets\Scripts\Fuzzy\System\Structures\FuzzyData.cs" />
+    <Compile Include="Assets\Scripts\Fuzzy\System\Structures\FuzzyNumber.cs" />
     <Compile Include="Assets\Scripts\Fuzzy\System\Structures\FuzzyUtility.cs" />
     <None Include="Assets\Scripts\Fuzzy\FuzzyAssembly.asmdef" />
     <Reference Include="UnityEngine">

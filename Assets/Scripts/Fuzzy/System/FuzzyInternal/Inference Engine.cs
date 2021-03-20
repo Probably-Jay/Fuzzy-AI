@@ -24,8 +24,18 @@ namespace FuzzyLogic
             {
                 FuzzyOutputData fuzzyOutput = new FuzzyOutputData();
 
-                
-                float value = fuzzyInput[rule.input][rule.inputState];
+                float value = 0;
+                switch (rule.isOrIsNot)
+                {
+                    case SimpleFuzzyRule.IsOrIsNot.Is:
+                        value = fuzzyInput[rule.input][rule.inputState];
+                        break;
+                    case SimpleFuzzyRule.IsOrIsNot.IsNot:
+                        value = (!fuzzyInput[rule.input])[rule.inputState];
+                        break;
+                }
+
+                 
                 fuzzyOutput[rule.output][rule.outputState] = value;
 
 
