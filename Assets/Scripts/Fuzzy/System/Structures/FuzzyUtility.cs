@@ -55,7 +55,7 @@ namespace FuzzyLogic
         }
 
         /// <summary>
-        /// Returns a value that was normalised to be between <c>[-1,1]</c> to again be between the clamped range <c>[</c><paramref name="valueMin"/><c>,</c><paramref name="valueMax"/><c>]</c>
+        /// Returns a value that was normalised to <c>[-1,1]</c> to again be between the clamped range <c>[</c><paramref name="valueMin"/><c>,</c><paramref name="valueMax"/><c>]</c>
         /// </summary>
         /// <param name="valueMin">The minumum value this function will return, will be mapped from <c>-1</c></param>
         /// <param name="valueMax">The maximum value this function will return, will be mapped from <c>1</c></param>
@@ -70,7 +70,7 @@ namespace FuzzyLogic
         }
 
         /// <summary>
-        /// Returns a value that was normalised unevenly to be between <c>[-1,1]</c> to again be between the clamped range <c>[</c><paramref name="valueMin"/><c>,</c><paramref name="valueMax"/><c>]</c> where <paramref name="valueNeutral"/> represents a neutral state
+        /// Returns a value that was normalised unevenly to <c>[-1,1]</c> to again be between the clamped range <c>[</c><paramref name="valueMin"/><c>,</c><paramref name="valueMax"/><c>]</c> where <paramref name="valueNeutral"/> represents a neutral state
         /// </summary>
         /// <param name="valueMin">The minumum value this function will return, will be mapped from <c>-1</c></param>
         /// <param name="valueNeutral">The neutral value this function will return, will be mapped from <c>0</c></param>
