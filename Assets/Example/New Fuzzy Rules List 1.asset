@@ -10,31 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073c7127f28dcc541a5355f0e9f213d9, type: 3}
-  m_Name: New Fuzzy Rules List
+  m_Name: New Fuzzy Rules List 1
   m_EditorClassIdentifier: 
-  rules:
-  - input: 0
-    isOrIsNot: 0
-    inputState: 4
-    output: 0
-    outputState: 4
-  - input: 0
-    isOrIsNot: 1
-    inputState: 3
-    output: 0
-    outputState: 3
-  - input: 0
-    isOrIsNot: 0
-    inputState: 2
-    output: 0
-    outputState: 2
-  - input: 0
-    isOrIsNot: 0
-    inputState: 1
-    output: 0
-    outputState: 4
-  - input: 0
-    isOrIsNot: 0
-    inputState: 0
-    output: 0
-    outputState: 0
+  simpleRules: []
+  logicRules: []

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 #if UNITY_EDITOR
 
 using UnityEditor;
@@ -14,64 +15,59 @@ namespace FuzzyLogic
     public class FuzzyRulesList : ScriptableObject
     {
 
-        public SimpleFuzzyRule[] rules;
+        public SimpleFuzzyRule[] simpleRules;
+        public LogicalFuzzyRule[] logicRules;
     }
 
     [System.Serializable]
     public class SimpleFuzzyRule
     {
+        public FuzzyPredicate predicate = new FuzzyPredicate();
+
+        public FuzzyConsequent consequent = new FuzzyConsequent();
+    }
+
+    [System.Serializable]
+    public class LogicalFuzzyRule
+    {
+        public FuzzyPredicate predicate1 = new FuzzyPredicate();
+
+        public FuzzyPredicate.Logic logicalRelationship;
+
+        public FuzzyPredicate predicate2 = new FuzzyPredicate();
 
 
+        public FuzzyConsequent consequent = new FuzzyConsequent();
+    }
 
-        //public enum Logic
-        //{
-        //    And
-        //    , Or
-        //}
-
-        public enum IsOrIsNot 
-        { 
+    [System.Serializable]
+    public class FuzzyPredicate 
+    {
+        public enum IsOrIsNot
+        {
             Is
             , IsNot
         }
 
-
+        public enum Logic
+        {
+            And
+            , Or
+        }
 
         public CrispInput.Inputs input;
-        public SimpleFuzzyRule.IsOrIsNot isOrIsNot;
-        public FuzzyUtility.FuzzyStates inputState;
+        public FuzzyPredicate.IsOrIsNot isOrIsNot;
+        public FuzzyUtility.FuzzyStates state;
+    }
+    [System.Serializable]
 
+    public class FuzzyConsequent
+    {
         public CrispOutput.Outputs output;
-        public FuzzyUtility.FuzzyStates outputState;
-
-     //   public Logic logicalRelationships;
-
-
-    } 
-    
-    //[System.Serializable]
-    //internal class LogicalFuzzyRule
-    //{
+        public FuzzyUtility.FuzzyStates state;
+    }
 
 
-
-    //    public enum Logic
-    //    {
-    //        And
-    //        , Or
-    //    }
-
-
-    //    public CrispInput.Inputs input;
-    //    public FuzzyNumber.FuzzyStates inputState;
-
-    //    public CrispOutput.Outputs output;
-    //    public FuzzyNumber.FuzzyStates outputState;
-
-    // //   public Logic logicalRelationships;
-
-
-    //}
 
 
 
@@ -82,111 +78,160 @@ namespace FuzzyLogic
     {
 
 
-        SerializedProperty rules;
+        SerializedProperty simpleRules;
+        SerializedProperty logicRules;
 
-        ReorderableList list;
+        ReorderableList simpleList;
+        ReorderableList logicList;
 
         private void OnEnable()
         {
-            rules = serializedObject.FindProperty(nameof(FuzzyRulesList.rules));
+            simpleRules = serializedObject.FindProperty(nameof(FuzzyRulesList.simpleRules));
+            logicRules = serializedObject.FindProperty(nameof(FuzzyRulesList.logicRules));
 
-            list = new ReorderableList(serializedObject, rules, true, true, true, true);
+            simpleList = new ReorderableList(serializedObject, simpleRules, true, true, true, true);
+            logicList = new ReorderableList(serializedObject, logicRules, true, true, true, true);
 
-            list.drawElementCallback = DrawListItems; 
-            list.drawHeaderCallback = DrawHeader; 
+            simpleList.drawElementCallback = DrawSimpleListItems; 
+            simpleList.drawHeaderCallback = DrawSimpleHeader;
+
+            logicList.drawElementCallback = DrawLogicListItems;
+            logicList.drawHeaderCallback = DrawLogicHeader; 
         }
 
 
         public override void OnInspectorGUI()
         {
 
-          //  base.OnInspectorGUI();
 
             serializedObject.Update(); 
 
-            list.DoLayoutList(); 
+            simpleList.DoLayoutList(); 
+            logicList.DoLayoutList(); 
 
           
             serializedObject.ApplyModifiedProperties();
 
         }
 
-
-        void DrawListItems(Rect rect, int index, bool isActive, bool isFocused)
+        void DrawSimpleHeader(Rect rect)
         {
-            SerializedProperty element = list.serializedProperty.GetArrayElementAtIndex(index);
-
-            EditorGUI.LabelField(new Rect(rect.x, rect.y, 15, EditorGUIUtility.singleLineHeight), "If");
-
-            EditorGUI.PropertyField(
-                 new Rect(rect.x+15, rect.y, 110, EditorGUIUtility.singleLineHeight),
-                 element.FindPropertyRelative(nameof(SimpleFuzzyRule.input)),
-                 GUIContent.none
-                );  
-            
-            EditorGUI.PropertyField(
-                 new Rect(rect.x+125, rect.y, 60, EditorGUIUtility.singleLineHeight),
-                 element.FindPropertyRelative(nameof(SimpleFuzzyRule.isOrIsNot)),
-                 GUIContent.none
-                ); 
-            
-            EditorGUI.PropertyField(
-                 new Rect(rect.x+185, rect.y, 40, EditorGUIUtility.singleLineHeight),
-                 element.FindPropertyRelative(nameof(SimpleFuzzyRule.inputState)),
-                 GUIContent.none
-                );
-
-            EditorGUI.LabelField(new Rect(rect.x+230, rect.y, 30, EditorGUIUtility.singleLineHeight), "then");
-
-
-            EditorGUI.PropertyField(
-                 new Rect(rect.x + 260, rect.y, 100, EditorGUIUtility.singleLineHeight),
-                 element.FindPropertyRelative(nameof(SimpleFuzzyRule.output)),
-                 GUIContent.none
-                );
-
-            EditorGUI.PropertyField(
-                 new Rect(rect.x +370, rect.y, 40, EditorGUIUtility.singleLineHeight),
-                 element.FindPropertyRelative(nameof(SimpleFuzzyRule.outputState)),
-                 GUIContent.none
-                );
-
-            //EditorGUI.PropertyField(
-            //    new Rect(rect.x, rect.y, 100, EditorGUIUtility.singleLineHeight),
-            //    element.FindPropertyRelative("mobs"),
-            //    GUIContent.none
-            //);
-
-
-
-
-            //EditorGUI.PropertyField(
-            //    new Rect(rect.x, rect.y, 20, EditorGUIUtility.singleLineHeight),
-            //    element.FindPropertyRelative("level"),
-            //    GUIContent.none
-            //);
-
-
-          //  EditorGUI.LabelField(new Rect(rect.x + 200, rect.y, 100, EditorGUIUtility.singleLineHeight), "Quantity");
-
-         
-            //EditorGUI.PropertyField(
-            //    new Rect(rect.x, rect.y, 20, EditorGUIUtility.singleLineHeight),
-            //    element.FindPropertyRelative("quantity"),
-            //    GUIContent.none
-            //);
-
+            string name = "Simple rules";
+            EditorGUI.LabelField(rect, name);
         }
-
-
-        void DrawHeader(Rect rect)
+        void DrawLogicHeader(Rect rect)
         {
-            string name = "Rules";
+            string name = "Logic rules";
             EditorGUI.LabelField(rect, name);
         }
 
 
+        void DrawSimpleListItems(Rect rect, int index, bool isActive, bool isFocused)
+        {
+            SerializedProperty element = simpleList.serializedProperty.GetArrayElementAtIndex(index);
+
+            SerializedProperty predicate = element.FindPropertyRelative(nameof(SimpleFuzzyRule.predicate));
+            SerializedProperty consiquent = element.FindPropertyRelative(nameof(SimpleFuzzyRule.consequent));
+
+
+            EditorGUI.LabelField(new Rect(rect.x, rect.y, 15, EditorGUIUtility.singleLineHeight), "If");
+
+            float currentOffset = 15;
+
+            currentOffset += DrawPredicate(rect, predicate, currentOffset);
+
+            DrawConsiquent(rect, consiquent, currentOffset);
+
+        }
+
+        void DrawLogicListItems(Rect rect, int index, bool isActive, bool isFocused)
+        {
+            SerializedProperty element = logicList.serializedProperty.GetArrayElementAtIndex(index);
+
+            SerializedProperty predicate1 = element.FindPropertyRelative(nameof(LogicalFuzzyRule.predicate1));
+            SerializedProperty predicate2 = element.FindPropertyRelative(nameof(LogicalFuzzyRule.predicate2));
+            SerializedProperty consiquent = element.FindPropertyRelative(nameof(LogicalFuzzyRule.consequent));
+
+
+            EditorGUI.LabelField(new Rect(rect.x, rect.y, 15, EditorGUIUtility.singleLineHeight), "If");
+
+
+            float currentOffset = 15;
+
+            currentOffset += DrawPredicate(rect, predicate1, currentOffset);
+
+            currentOffset += DrawRelationship(rect, element, currentOffset);
+
+            currentOffset += DrawPredicate(rect, predicate2, currentOffset);
+
+
+            DrawConsiquent(rect, consiquent, currentOffset);
+
+
+        }
+
+
+        private static float DrawPredicate(Rect rect, SerializedProperty predicate1, float currentOffset)
+        {
+            EditorGUI.PropertyField(
+                 new Rect(rect.x + currentOffset, rect.y, 110, EditorGUIUtility.singleLineHeight),
+                 predicate1.FindPropertyRelative(nameof(FuzzyPredicate.input)),
+                 GUIContent.none
+                );
+
+            EditorGUI.PropertyField(
+                 new Rect(rect.x + currentOffset + 110, rect.y, 60, EditorGUIUtility.singleLineHeight),
+                 predicate1.FindPropertyRelative(nameof(FuzzyPredicate.isOrIsNot)),
+                 GUIContent.none
+                );
+
+            EditorGUI.PropertyField(
+                 new Rect(rect.x + currentOffset + 170, rect.y, 40, EditorGUIUtility.singleLineHeight),
+                 predicate1.FindPropertyRelative(nameof(FuzzyPredicate.state)),
+                 GUIContent.none
+                );
+            return 215;
+        }
+
+        private static float DrawRelationship(Rect rect, SerializedProperty element, float currentOffset)
+        {
+            EditorGUI.PropertyField(
+              new Rect(rect.x + currentOffset, rect.y, 50, EditorGUIUtility.singleLineHeight),
+              element.FindPropertyRelative(nameof(LogicalFuzzyRule.logicalRelationship)),
+              GUIContent.none
+             );
+            return 55;
+        }
+
+        private static void DrawConsiquent(Rect rect, SerializedProperty consiquent, float currentOffset)
+        {
+            EditorGUI.LabelField(new Rect(rect.x + currentOffset, rect.y, 30, EditorGUIUtility.singleLineHeight), "then");
+
+            EditorGUI.PropertyField(
+                 new Rect(rect.x + currentOffset + 35, rect.y, 100, EditorGUIUtility.singleLineHeight),
+                 consiquent.FindPropertyRelative(nameof(FuzzyConsequent.output)),
+                 GUIContent.none
+                );
+
+            EditorGUI.LabelField(new Rect(rect.x + currentOffset + 140, rect.y, 15, EditorGUIUtility.singleLineHeight), "is");
+
+            EditorGUI.PropertyField(
+                 new Rect(rect.x + currentOffset + 155, rect.y, 40, EditorGUIUtility.singleLineHeight),
+                 consiquent.FindPropertyRelative(nameof(FuzzyConsequent.state)),
+                 GUIContent.none
+                );
+        }
+
+      
+
+
+
+
+
     }
+
+
+
 
 
 #endif

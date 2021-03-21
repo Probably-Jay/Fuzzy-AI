@@ -73,6 +73,8 @@ namespace FuzzyLogic
 
 
 
+
+
         public static FuzzyNumber operator !(FuzzyNumber n)
         {
             var negation = new FuzzyNumber();
@@ -81,6 +83,26 @@ namespace FuzzyLogic
                 negation[state] = 1f - n[state];
             }
             return negation;
+        }     
+        
+        public static FuzzyNumber operator |(FuzzyNumber a,FuzzyNumber b)
+        {
+            var or = new FuzzyNumber();
+            foreach (FuzzyUtility.FuzzyStates state in System.Enum.GetValues(typeof(FuzzyUtility.FuzzyStates)))
+            {
+                or[state] = Mathf.Max(a[state], b[state]);
+            }
+            return or;
+        } 
+        
+        public static FuzzyNumber operator &(FuzzyNumber a,FuzzyNumber b)
+        {
+            var and = new FuzzyNumber();
+            foreach (FuzzyUtility.FuzzyStates state in System.Enum.GetValues(typeof(FuzzyUtility.FuzzyStates)))
+            {
+                and[state] = Mathf.Min(a[state], b[state]);
+            }
+            return and;
         }
 
 
