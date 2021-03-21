@@ -36,12 +36,11 @@ public class Test : MonoBehaviour
 
     private void RunFuzzy()
     {
-        CrispInput crispInput = new CrispInput();
-        crispInput[CrispInput.Inputs.Input1] = crispInput1;
-        crispInput[CrispInput.Inputs.Input2] = crispInput2;
-        crispInput[CrispInput.Inputs.Input3] = crispInput3;
-
+        CrispInput crispInput = fuzzySystem.BuildInput(new float[]{ crispInput1,crispInput2,crispInput3});
+ 
         CrispOutput crispOutput = fuzzySystem.FuzzyCompute(crispInput);
+
+
         Debug.Log($"Log {crispOutput[CrispOutput.Outputs.Output1]}" );
     }
 }

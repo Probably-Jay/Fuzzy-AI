@@ -112,7 +112,8 @@ namespace FuzzyLogic
         {
             FuzzyOutputData outputData = new FuzzyOutputData();
 
-            foreach (CrispOutput.Outputs outputVariable in System.Enum.GetValues(typeof(CrispOutput.Outputs)))
+           
+            foreach (CrispOutput.Outputs outputVariable in CrispOutput.OutputEnumvalues)
             {
                 foreach (FuzzyUtility.FuzzyStates membershipState in System.Enum.GetValues(typeof(FuzzyUtility.FuzzyStates)))
                 {

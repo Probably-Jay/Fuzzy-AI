@@ -15,7 +15,7 @@ namespace FuzzyLogic
         }
 
         /// <summary>
-        /// Clamped normalises <paramref name="value"/> to a <c>-1</c> to <c>1</c> scale based on <paramref name="valueMin"/> and <paramref name="valueMax"/>
+        /// Clamped normalises <paramref name="value"/> to a <c>[-1,1]</c> scale based on the scale between <c>[</c><paramref name="valueMin"/><c>,</c><paramref name="valueMax"/><c>]</c>
         /// </summary>
         /// <param name="valueMin">The minumum value this <paramref name="value"/> can be expeceted to have, will be mapped to <c>-1</c></param>
         /// <param name="valueMax">The maximum value this <paramref name="value"/> can be expeceted to have, will be mapped to <c>1</c></param>
@@ -30,7 +30,7 @@ namespace FuzzyLogic
         }
 
         /// <summary>
-        /// Clamped normalises <paramref name="value"/> to a <c>-1</c> to <c>1</c> scale based on the uneven scale between <paramref name="valueMin"/>, <paramref name="valueNeutral"/>, and <paramref name="valueMax"/>
+        /// Clamped normalises <paramref name="value"/> to a <c>[-1,1]</c> scale based on the uneven scale between <c>[</c><paramref name="valueMin"/><c>,</c><paramref name="valueMax"/><c>]</c>, where <paramref name="valueNeutral"/> represents a neutral state 
         /// </summary>
         /// <param name="valueMin">The minumum value this <paramref name="value"/> can be expeceted to have, will be mapped to <c>-1</c></param>
         /// <param name="valueNeutral">The value representing a neutral state of <paramref name="value"/>, will be mapped to <c>0</c></param>

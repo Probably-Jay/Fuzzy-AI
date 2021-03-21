@@ -22,7 +22,7 @@ namespace FuzzyLogic
         public CrispOutput Defuzzify(FuzzyOutputData fuzzyOutput)
         {
             CrispOutput crispOutput = new CrispOutput();
-            foreach (CrispOutput.Outputs variable in System.Enum.GetValues(typeof(CrispOutput.Outputs)))
+            foreach (CrispOutput.Outputs variable in CrispOutput.OutputEnumvalues)
             {
                 crispOutput[variable] = GetCrispValue(fuzzyOutput[variable]);
             }

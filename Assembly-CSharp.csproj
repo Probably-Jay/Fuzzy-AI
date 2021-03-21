@@ -602,6 +602,10 @@
       <Project>{70991FFF-C5B7-8506-6F4A-8EB40CAE76CE}</Project>
       <Name>Unity.VSCode.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="FuzzyAssembly.csproj">
+      <Project>{A8DC7A73-3F8A-25A8-8A8D-99BA8DECE989}</Project>
+      <Name>FuzzyAssembly</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{40346703-E736-A449-6912-7FF324829BBC}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
@@ -629,10 +633,6 @@
     <ProjectReference Include="UnityEditor.UI.csproj">
       <Project>{8020C23B-CE0F-5843-3725-9D76B1D2DED6}</Project>
       <Name>UnityEditor.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="FuzzyAssembly.csproj">
-      <Project>{A8DC7A73-3F8A-25A8-8A8D-99BA8DECE989}</Project>
-      <Name>FuzzyAssembly</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
