@@ -7,9 +7,13 @@ using System;
 [RequireComponent(typeof(FuzzySystem))]
 public class Test : MonoBehaviour
 {
+    private const int Input1Max = 10;
+    private const int Input1Min = -5;
+    private const int Input2Max = 5;
+    private const int Input2Min = -5;
     FuzzySystem fuzzySystem;
-    [SerializeField,Range(-1,1)] float crispInput1;
-    [SerializeField, Range(-1, 1)] float crispInput2;
+    [SerializeField,Range(Input1Min, Input1Max)] float crispInput1;
+    [SerializeField, Range(Input2Min, Input2Max)] float crispInput2;
     [SerializeField, Range(-1, 1)] float crispInput3;
 
     [SerializeField] FuzzyRulesList rulesList;
@@ -30,17 +34,28 @@ public class Test : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RunFuzzy();
+            RunFuzzy(); 
         }
     }
 
+
     private void RunFuzzy()
     {
-        CrispInput crispInput = fuzzySystem.BuildInput(new float[]{ crispInput1,crispInput2,crispInput3});
+        float[] minValues = new float[CrispInput.NumberOfVariables] { Input1Min, Input2Min, -1 };
+        float[] neutralValues = new float[CrispInput.NumberOfVariables] { 0,0,0 };
+        float[] maxValues = new float[CrispInput.NumberOfVariables] { Input1Max,Input2Max,1 };
+
+
+
+        CrispInput crispInput = fuzzySystem.BuildInputNormalisedUneven(new float[]{ crispInput1,crispInput2,crispInput3},minValues,neutralValues,maxValues);
+
+        Debug.Log($"In log {crispInput1} -> {crispInput[CrispInput.Inputs.Input1]}");
  
-        CrispOutput crispOutput = fuzzySystem.FuzzyCompute(crispInput);
+        CrispOutput normalisedCrispOutput = fuzzySystem.FuzzyCompute(crispInput);
+
+        CrispOutput unNormalisedOutput = fuzzySystem.UnNormaliseOutputUneven(normalisedCrispOutput, minValues, neutralValues, maxValues);
 
 
-        Debug.Log($"Log {crispOutput[CrispOutput.Outputs.Output1]}" );
+        Debug.Log($"Out log {normalisedCrispOutput[CrispOutput.Outputs.Output1]} -> {unNormalisedOutput[CrispOutput.Outputs.Output1]}" );
     }
 }

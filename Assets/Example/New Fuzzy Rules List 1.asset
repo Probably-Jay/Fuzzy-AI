@@ -20,4 +20,11 @@ MonoBehaviour:
     consequent:
       output: 0
       state: 0
+  - predicate:
+      input: 0
+      isOrIsNot: 0
+      state: 1
+    consequent:
+      output: 0
+      state: 4
   logicRules: []

@@ -63,6 +63,8 @@ namespace FuzzyLogic
         /// <returns>Un-Normalised value</returns>
         public static float UnNormaliseValue(float valueMin, float valueMax, float nValue)
         {
+            if (!ValidInstruction(nValue)) return nValue;
+
             float negPosOne = Mathf.Clamp(nValue,-1,1);
             negPosOne += 1;
             negPosOne /= 2;
@@ -79,6 +81,7 @@ namespace FuzzyLogic
         /// <returns>Un-Normalised value</returns>
         public static float UnNormaliseValueUneven(float valueMin, float valueNeutral, float valueMax, float nValue)
         {
+            if (!ValidInstruction(nValue)) return nValue;
             if (nValue < 0)
             {
                 float negZero = Mathf.Clamp(nValue, -1, 0);

@@ -16,7 +16,6 @@ namespace FuzzyLogic
         private FuzzyRulesList fuzzyRulesList = null;
 
 
-
         public FunctionCurve FunctionCurve { get => functionCurve; 
             set
             {
@@ -66,7 +65,7 @@ namespace FuzzyLogic
             {
                 normalisedInputs[i] = FuzzyUtility.NormaliseValue(minValues[i], maxValues[i], rawInputs[i]);
             }
-            return Build(rawInputs);
+            return Build(normalisedInputs);
         }
 
         /// <summary>
@@ -75,7 +74,7 @@ namespace FuzzyLogic
         /// </summary>
         /// <param name="rawInputs">A list of raw "crisp" float inputs, within [<paramref name="minValues"/>,<paramref name="maxValues"/>]</param>
         /// <param name="minValues">A list of minimum values where <paramref name="rawInputs"/> will be mapped to <c>-1</c></param>
-        /// <param name="neutralValues">A list of neutral values where <paramref name="rawInputs"/> will be mapped to <c></c></param>
+        /// <param name="neutralValues">A list of neutral values where <paramref name="rawInputs"/> will be mapped to <c>0</c></param>
         /// <param name="maxValues">A list of maximum values where <paramref name="rawInputs"/> will be mapped to <c>1</c></param>
         /// <returns>A new unevenly-normalised <see cref="FuzzyLogic.CrispInput"/></returns>
         public CrispInput BuildInputNormalisedUneven(float[] rawInputs, float[] minValues, float[] neutralValues, float[] maxValues)
@@ -85,7 +84,7 @@ namespace FuzzyLogic
             {
                 normalisedInputs[i] = FuzzyUtility.NormaliseValueUneven(minValues[i], neutralValues[i], maxValues[i], rawInputs[i]);
             }
-            return Build(rawInputs);
+            return Build(normalisedInputs);
         }
 
 
